@@ -1,11 +1,17 @@
 import React from 'react'
+import Header from './Header'
 
-export default class MattCodesApp extends React.Component {
+class MattCodesApp extends React.Component {
   render() {
+    const divStyle = {
+      backgroundColor: '#333333'
+    }
     return (
-      <div>
-        <h1>mattcodes.</h1>
+      <div style={divStyle}>
+        <Header />
       </div>
     )
   }
 }
+
+export default MattCodesApp
