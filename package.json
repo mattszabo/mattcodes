@@ -6,7 +6,7 @@
   "author": "Matt Szabo",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --host 0.0.0.0 --public mattcodes.local:8080",
     "build": "webpack -p --color",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --recursive --require ./test/helpers/testHelper.js"
   },
