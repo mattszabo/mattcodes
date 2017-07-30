@@ -1,16 +1,16 @@
 install: yarn install
 script: npm run test && npm run build
 deploy:
-  on:
-    branch: master
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: mattcodes.com.au.s3-website-ap-southeast-2.amazonaws.com
-  skip_cleanup: true
-  local_dir: dist
-  cache_control: "max-age=21600"
+  bucket: mattcodes.com.au
+  local-dir: dist
+  upload-dir: /
   acl: public_read
+  on:
+    repo: mattszabo/mattcodes
 after_depoy:
-  - aws configure set preview.cloudfront true
-  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+- aws configure set preview.cloudfront true
+- aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID
+  --paths "/*"
