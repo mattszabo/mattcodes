@@ -1,4 +1,6 @@
-install: yarn install
+install:
+  - yarn install
+  - pip install awscli
 script: npm run test && npm run build
 deploy:
   provider: s3
