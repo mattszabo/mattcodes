@@ -6,7 +6,7 @@ deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key:
-    secure: $AWS_SECRET_ACCESS_KEY
+    secure: $AWS_SECRET_ACCESS_KEY_SECURE
   bucket: mattcodes.com.au
   skip_cleanup: true
   local_dir: dist
