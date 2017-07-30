@@ -6,7 +6,6 @@ deploy:
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: mattcodes.com.au
   local-dir: dist
-  upload-dir: /
   acl: public_read
   skip_cleanup: true
   region: $AWS_DEFAULT_REGION
