@@ -7,7 +7,7 @@ deploy:
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key:
     secure: $AWS_SECRET_ACCESS_KEY_SECURE
-  bucket: mattcodes.com.au
+  bucket: mattcodes.com.au.s3-website-ap-southeast-2.amazonaws.com
   skip_cleanup: true
   local_dir: dist
   cache_control: "max-age=21600"
