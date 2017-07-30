@@ -8,6 +8,7 @@ deploy:
   local-dir: dist
   upload-dir: /
   acl: public_read
+  skip_cleanup: true
   on:
     repo: mattszabo/mattcodes
 after_depoy:
