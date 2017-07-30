@@ -1,12 +1,16 @@
 install: yarn install
 script: npm run test && npm run build
 deploy:
+  on:
+    branch: master
   provider: s3
-  access_key_id: AKIAIDQ7ZP2MBWTTC6TQ
+  access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key:
-    secure: phg4wNRVEPVPcjhNUbZ8ENDf7MZzpJnamYu7U2skjgAXVoCf/vSxCsgjLfvtBRzT0Enfr2p+3OvziFfJ/H155PMLUMYv2cvglA3Afspt94Pjd72gvrqObvuLtENc+udq7nZM8FsyXMWiETS9w33Va5zHBIECLTII233/vwBzFByq1/n83ruaf/tqgwLPMgokYZ5wViRc7Pmesb8FOdQgtMoXNojhhltOsmj4Wds5eeL/rf48M/yWwVRGpodgiVw9sSb3iKPIp8shRJHEgczwcMYx3MPc1BWf+yxGZg1QSlfOsS+uDyttGc9Jw2/gzr3KAtJhxmBNfA2KYgQHer0sxP2atfKS35iz/4j4aiuwtxvASZ6l/IEHyo7uxHL/TphQONVvLTcRcfdszkv+D7x/rPsaqVUeINYFS678nFCeu6AlSarbp6aeTLwNNhPbtBg8t5AqmjqjX2jn/qSUIDKtlgiKebNrxt2/1B1eg3luyOGdMUAoZ0dVG2lcuXGzW1xItwiOH92Cl9y4hpWQRQyJpvlC3cMgpnphJdurxDnYXW8j58MrJ99TcYa7oUWXyaTDFBolPS3nBMao2aumBOEaUaUsbatTxgyl0i48fBG3ftSns6HfaLLYuAutTYFINbyS23R/zzqWmGEvrAodtE0DbTvC1vFQoIKGgN7OpZa5Seo=
+    secure: $AWS_SECRET_ACCESS_KEY
   bucket: mattcodes.com.au
   skip_cleanup: true
   local_dir: dist
-  acl: public_read
-  region: ap-southeast-2
+  cache_control: "max-age=21600"
+after_depoy:
+  - aws configure set preview.cloudfront true
+  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
