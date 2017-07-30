@@ -5,8 +5,7 @@ deploy:
     branch: master
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key:
-    secure: $AWS_SECRET_ACCESS_KEY_SECURE
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: www.mattcodes.com.au
   endpoint: mattcodes.com.au.s3-website-ap-southeast-2.amazonaws.com
   skip_cleanup: true
