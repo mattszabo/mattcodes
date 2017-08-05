@@ -1,13 +1,10 @@
 import React from 'react'
+import './header.scss'
 
 class Header extends React.Component {
   render() {
-    const headerStyle = {
-      color: '#FFFFFF',
-      borderBottom: '1px solid #FFFFFF'
-    }
     return (
-      <h1 style={headerStyle}>
+      <h1>
         mattcodes.
       </h1>
     )
