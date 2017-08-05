@@ -3,7 +3,7 @@ import Header from './Header'
 
 class MattCodesApp extends React.Component {
   componentWillMount() {
-    document.body.style.backgroundColor = "lightblue";
+    document.body.style.backgroundColor = 'lightblue'
   }
 
   render() {
