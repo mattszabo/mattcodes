@@ -2,5 +2,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import MattCodesApp from './components/MattCodesApp'
+import './style.scss'
 
 ReactDOM.render(<MattCodesApp />, document.getElementById('root'))

@@ -28,6 +28,10 @@ var config = {
         loader: 'babel-loader',
         exclude: /node_modules/
       },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader'
+      }
     ]
   },
   plugins: [HtmlWebpackPluginConfig]

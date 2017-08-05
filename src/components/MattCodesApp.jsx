@@ -2,14 +2,9 @@ import React from 'react'
 import Header from './Header'
 
 class MattCodesApp extends React.Component {
-  componentWillMount() {
-    document.body.style.backgroundColor = 'lightblue'
-  }
-
   render() {
-    const divStyle = {}
     return (
-      <div style={divStyle}>
+      <div className='mattCodesApp'>
         <Header />
       </div>
     )
