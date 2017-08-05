@@ -4,7 +4,7 @@ import Header from './Header/Header'
 class MattCodesApp extends React.Component {
   render() {
     return (
-      <div className='mattCodesApp'>
+      <div>
         <Header />
       </div>
     )
