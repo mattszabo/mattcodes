@@ -8,9 +8,9 @@
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --public mattcodes.local:8080",
     "build": "webpack -p --progress --color",
-    "test": "./node_modules/.bin/mocha ./test/**/*.spec.js --compilers js:babel-core/register --require ./test/helpers/testHelper.js",
+    "test": "./node_modules/.bin/mocha ./test/**/*.spec.js --compilers js:babel-core/register,js:./test/helpers/testHelper.js",
     "lint": "./node_modules/.bin/eslint './src/**/*.js' './test/**/*.js'",
-    "cover": "istanbul cover _mocha ./test/**/*.spec.js -- --require babel-register --report lcov",
+    "cover": "istanbul cover _mocha ./test/**/*.spec.js -- --compilers js:babel-core/register,js:./test/helpers/testHelper.js --report lcov",
     "precommit": "npm run lint && npm run cover"
   },
   "dependencies": {
@@ -30,9 +30,13 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-react": "^6.24.1",
+    "css-modules-require-hook": "^4.0.6",
+    "enzyme": "^2.9.1",
     "eslint": "^4.3.0",
     "eslint-plugin-react": "^7.1.0",
     "istanbul": "1.1.0-alpha.1",
+    "jsdom": "^11.1.0",
+    "react-test-renderer": "^15.6.1",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.6.1"
   }
