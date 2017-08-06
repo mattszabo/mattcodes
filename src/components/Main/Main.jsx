@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import Home from '../Home/Home'
 import One from '../One/One'
 import Two from '../Two/Two'
-import './main.scss'
 
 class Main extends React.Component {
   render() {
