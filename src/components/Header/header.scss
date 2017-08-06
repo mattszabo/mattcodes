@@ -1,4 +1,26 @@
-h1 {
+header {
   color: #FFFFFF;
   border-bottom: 1px solid #FFFFFF;
+  height: 60px;
+  h1 {
+    float: left;
+    width: 100px;
+    height: 100px;
+  }
+  nav {
+    display:inline;
+    float:right;
+  }
+  nav ul {
+    list-style: none;
+    font-size: 26px;
+    a {
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+  }
+  nav ul li{
+    display:inline-block;
+    margin-right: 15px;
+  }
 }

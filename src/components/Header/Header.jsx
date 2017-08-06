@@ -5,8 +5,8 @@ import './header.scss'
 class Header extends React.Component {
   render() {
     return (
-      <header className='header'>
-        mattcodes.
+      <header className='_header'>
+        <h1>mattcodes.</h1>
         <nav>
           <ul>
             <li><Link to='/'>Home</Link></li>
