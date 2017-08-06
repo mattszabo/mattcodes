@@ -38,7 +38,7 @@ var config = {
   },
   plugins: [
     HtmlWebpackPluginConfig,
-    new webpack.optimize.CommonsChunkPlugin({ name: 'common' }) //prevent duplicate imports across 
+    new webpack.optimize.CommonsChunkPlugin({ name: 'common' }) //prevent duplicate imports across
   ]
 }
 
