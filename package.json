@@ -10,6 +10,7 @@
     "build": "webpack -p --progress --color",
     "test": "./node_modules/.bin/mocha ./test/**/*.spec.js --compilers js:babel-core/register --require ./test/helpers/testHelper.js",
     "lint": "./node_modules/.bin/eslint './src/**/*.js' './test/**/*.js'",
+    "cover": "istanbul cover _mocha ./test/**/*.spec.js -- --require babel-register --report lcov",
     "precommit": "npm run lint && npm run test"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.3.0",
     "eslint-plugin-react": "^7.1.0",
+    "istanbul": "1.1.0-alpha.1",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.6.1"
   }
