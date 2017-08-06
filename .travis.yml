@@ -27,3 +27,7 @@ deploy:
     branch: master
 after_deploy:
   - travis-ci-cloudfront-invalidation -a $AWS_ACCESS_KEY_ID -s $AWS_SECRET_ACCESS_KEY -c $CLOUDFRONT_DISTRIBUTION_ID -i '/*' -b $TRAVIS_BRANCH -p $TRAVIS_PULL_REQUEST
+notifications:
+  email:
+    on_success: never
+    on_failure: never
