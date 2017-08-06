@@ -11,7 +11,7 @@
     "test": "./node_modules/.bin/mocha ./test/**/*.spec.js --compilers js:babel-core/register --require ./test/helpers/testHelper.js",
     "lint": "./node_modules/.bin/eslint './src/**/*.js' './test/**/*.js'",
     "cover": "istanbul cover _mocha ./test/**/*.spec.js -- --require babel-register --report lcov",
-    "precommit": "npm run lint && npm run test"
+    "precommit": "npm run lint && npm run cover"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
