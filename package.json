@@ -5,12 +5,43 @@
   "main": "index.js",
   "author": "Matt Szabo",
   "license": "MIT",
+  "nyc": {
+    "check-coverage": true,
+    "lines": 14,
+    "statements": 14,
+    "functions": 16,
+    "branches": 99,
+    "require": [
+      "babel-register"
+    ],
+    "extension": [
+      ".jsx",
+      ".es6"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary",
+      "html"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "test/helpers/testHelper.js",
+      "dist",
+      "coverage",
+      "node_modules",
+      "webpack.config.js"
+    ],
+    "cache": true,
+    "all": true,
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --public mattcodes.local:8080",
     "build": "webpack -p --progress --color",
     "test": "./node_modules/.bin/mocha ./test/**/*.spec.js --compilers js:babel-core/register,js:./test/helpers/testHelper.js",
     "lint": "./node_modules/.bin/eslint './src/**/*.js' './test/**/*.js'",
-    "cover": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover _mocha ./test/**/*.spec.js -- --compilers js:./test/helpers/testHelper.js --report lcov",
+    "cover": "cross-env NODE_ENV=test ./node_modules/.bin/nyc npm test",
     "precommit": "npm run lint && npm run cover"
   },
   "dependencies": {
@@ -20,6 +51,7 @@
     "html-webpack-plugin": "^2.29.0",
     "mocha": "^3.4.2",
     "node-sass": "^4.5.3",
+    "nyc": "^11.1.0",
     "path": "^0.12.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -31,13 +63,16 @@
     "babel-core": "^6.25.0",
     "babel-istanbul": "^0.12.2",
     "babel-loader": "^7.1.1",
+    "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.3",
     "css-modules-require-hook": "^4.0.6",
     "enzyme": "^2.9.1",
     "eslint": "^4.3.0",
     "eslint-plugin-react": "^7.1.0",
     "istanbul": "1.1.0-alpha.1",
     "jsdom": "^11.1.0",
+    "nyc": "^11.1.0",
     "react-test-renderer": "^15.6.1",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.6.1"
