@@ -1,10 +1,4 @@
-import React, { Component } from 'react'
-import { Layout } from './components/layout/Layout'
+import { compose } from 'recompose';
+import Main from './components/layouts/Main';
 
-class App extends Component {
-  render() {
-    return <Layout />
-  }
-}
-
-export default App
+export default compose()(Main);
