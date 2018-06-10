@@ -1,4 +1,4 @@
 import { compose } from 'recompose';
-import Main from './components/layouts/Main';
+import Layout from './components/layouts/Minimal';
 
-export default compose()(Main);
+export default compose()(Layout);

@@ -1,4 +1,4 @@
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, setDisplayName } from 'recompose';
 
-export default compose()(() => <div>projects</div>);
+export default compose(setDisplayName('Projects'))(() => <div>projects</div>);
