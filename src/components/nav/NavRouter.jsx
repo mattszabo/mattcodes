@@ -5,12 +5,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 
 export default compose(setDisplayName('Router'))(({ rootComponent, components }) => {
-	const routeNames = pluck('displayName')(components);
+	const linkNames = [rootComponent.displayName].concat(
+		pluck('displayName')(components)
+	);
 
 	return (
 		<Router>
 			<div>
-				<Navbar links={[rootComponent.displayName].concat(routeNames)} />
+				<Navbar links={linkNames} />
 				<Route exact path="/" component={rootComponent} />
 				{components.map((component, id) => (
 					<Route

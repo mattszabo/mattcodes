@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose, setDisplayName } from 'recompose';
 import { Link } from 'react-router-dom';
+import Dropdown from './dropdown/Dropdown';
 import styles from './styles.css';
 
 export default compose(setDisplayName('Navbar'))(({ links }) => (
@@ -14,5 +15,6 @@ export default compose(setDisplayName('Navbar'))(({ links }) => (
 				</li>
 			);
 		})}
+		<Dropdown />
 	</ul>
 ));

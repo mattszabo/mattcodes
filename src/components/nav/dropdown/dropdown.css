@@ -1,0 +1,24 @@
+.label {
+	position: relative;
+	color: blue;
+	border: 1px solid black;
+}
+
+.menu {
+	position: absolute;
+	top: 30px;
+	border: 1px solid red;
+}
+
+.menuItem {
+	top: 50px;
+	border: 1px solid blue;
+}
+
+.open {
+	display: block;
+}
+
+.closed {
+	display: none;
+}
