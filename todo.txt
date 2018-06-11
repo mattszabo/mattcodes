@@ -1,0 +1,3 @@
+dropdown to be inserted into NavRouter via structure prop
+
+navrouter and navbar to have logic moved up inside compose

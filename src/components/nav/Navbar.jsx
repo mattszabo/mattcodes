@@ -7,11 +7,18 @@ import styles from './styles.css';
 export default compose(setDisplayName('Navbar'))(({ links }) => (
 	<ul className={styles.navList}>
 		{links.map((link, id) => {
+			let to = '';
+			let label = '';
+			if (typeof link === 'object') {
+				to = link.path;
+				label = link.label;
+			} else {
+				to = link.toLowerCase() === 'home' ? '/' : link.toLowerCase();
+				label = link;
+			}
 			return (
 				<li key={id}>
-					<Link to={link.toLowerCase() === 'home' ? '/' : link.toLowerCase()}>
-						{link}
-					</Link>
+					<Link to={to}>{label}</Link>
 				</li>
 			);
 		})}

@@ -9,7 +9,6 @@ const withMenuItem = item => <div>{item}</div>;
 export default compose(
 	withStateHandlers(() => initialState, {
 		toggleExpanded: ({ expanded }) => () => {
-			console.log(expanded);
 			return {
 				expanded: !expanded,
 			};
