@@ -1,3 +1,7 @@
-dropdown to be inserted into NavRouter via structure prop
-
 navrouter and navbar to have logic moved up inside compose
+
+styles at a theme level for navbar in particular
+
+navbar render object instead of label?
+
+generic functions for creating submenu routes etc. recursive?

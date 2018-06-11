@@ -1,63 +1,40 @@
 import React from 'react';
-import { compose, setDisplayName } from 'recompose';
-import {
-	map,
-	values,
-	path,
-	prop,
-	pluck,
-	pick,
-	forEach,
-	flatten,
-	isNil,
-	has,
-	filter,
-	compose as composeR,
-	find,
-	not,
-} from 'ramda';
+import { compose, setDisplayName, withProps } from 'recompose';
+import { map, prop, flatten, has, filter, find, concat } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 
-export default compose(setDisplayName('Router'))(({ structure }) => {
-	// const linkNames = [rootComponent.displayName].concat(
-	// 	pluck('displayName')(pick('')(components))
-	// );
-
-	const getLabel = prop('label');
-	const getComponent = prop('component');
-	const getPath = prop('path');
-
-	const linksList = map(
-		o => (has('path', o) ? { label: getLabel(o), path: getPath(o) } : getLabel(o)),
-		structure
-	);
-	console.log('la', linksList);
-	const isRoot = o => has('root')(o) && o.root;
-	const isNotRoot = o => !has('root')(o);
-	const components = filter(isNotRoot, structure);
-
-	const rootComponent = getComponent(find(isRoot, structure));
-	// const rootComponent = filter(isRoot, structure);
-	// console.log('r', rootComponent);
-
+export default compose(
+	withProps(({ structure }) => ({
+		navItems: map(item => item, structure),
+		getComponentsToRoute: () => {
+			const isNotRoot = o => !has('root')(o);
+			const isNotSubMenu = o => !has('subMenu', o);
+			const subComps = map(
+				x => x.subMenu,
+				filter(x => has('subMenu', x), structure)
+			);
+			const components = flatten(
+				concat(filter(isNotSubMenu, filter(isNotRoot, structure)), subComps)
+			);
+			return components;
+		},
+		rootComponent: prop('component')(find(x => has('root')(x) && x.root)(structure)),
+	})),
+	setDisplayName('Router')
+)(({ structure, navItems, getComponentsToRoute, rootComponent }) => {
 	return (
 		<Router>
 			<div>
-				<Navbar links={linksList} />
+				<Navbar items={navItems} />
 				<Route exact path="/" component={rootComponent} />
-				{components.map((o, id) => {
-					console.log(o.path);
-					const path = o.path || o.component.displayName.toLowerCase();
-					console.log('p', path);
-					return (
-						<Route
-							key={id}
-							path={`/${o.path || o.component.displayName.toLowerCase()}`}
-							component={o.component}
-						/>
-					);
-				})}
+				{getComponentsToRoute().map((item, id) => (
+					<Route
+						key={id}
+						path={`/${item.path || item.component.displayName.toLowerCase()}`}
+						component={item.component}
+					/>
+				))}
 			</div>
 		</Router>
 	);

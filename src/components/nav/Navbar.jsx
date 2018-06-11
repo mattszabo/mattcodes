@@ -1,27 +1,32 @@
 import React from 'react';
 import { compose, setDisplayName } from 'recompose';
+import { has } from 'ramda';
 import { Link } from 'react-router-dom';
 import Dropdown from './dropdown/Dropdown';
 import styles from './styles.css';
 
-export default compose(setDisplayName('Navbar'))(({ links }) => (
-	<ul className={styles.navList}>
-		{links.map((link, id) => {
-			let to = '';
-			let label = '';
-			if (typeof link === 'object') {
-				to = link.path;
-				label = link.label;
-			} else {
-				to = link.toLowerCase() === 'home' ? '/' : link.toLowerCase();
-				label = link;
-			}
-			return (
-				<li key={id}>
-					<Link to={to}>{label}</Link>
-				</li>
-			);
-		})}
-		<Dropdown />
-	</ul>
-));
+const NavListItem = ({ to, label }) => (
+	<li>
+		<Link to={to}>{label}</Link>
+	</li>
+);
+
+export default compose(setDisplayName('Navbar'))(({ items }) => {
+	return (
+		<ul className={styles.navList}>
+			{items.map((item, id) => {
+				const { label, path } = item;
+				const to = path
+					? path
+					: label.toLowerCase() === 'home'
+						? '/'
+						: label.toLowerCase();
+
+				if (has('subMenu', item)) {
+					return <Dropdown key={id} item={item} />;
+				}
+				return <NavListItem key={id} label={label} to={to} />;
+			})}
+		</ul>
+	);
+});

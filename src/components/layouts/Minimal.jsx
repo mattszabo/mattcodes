@@ -9,7 +9,6 @@ import styles from './minimal.css';
 
 export default compose(setDisplayName('Minimal'))(() => (
 	<div className={styles.content}>
-		{/* <NavRouter rootComponent={Home} components={[Projects, About, Themes]} /> */}
 		<NavRouter
 			structure={[
 				{
@@ -18,13 +17,32 @@ export default compose(setDisplayName('Minimal'))(() => (
 					root: true,
 				},
 				{
-					label: 'projects',
+					label: 'Projects',
 					component: Projects,
 					path: 'something',
 				},
 				{
 					label: 'about',
 					component: About,
+				},
+				{
+					label: 'themes, yo!',
+					subMenu: [
+						{
+							label: 'theme one',
+							path: 'the-themes',
+							component: Themes,
+						},
+						{
+							label: 'theme two',
+							path: 'second-theme',
+							component: About,
+						},
+						{
+							label: 'third',
+							component: Themes,
+						},
+					],
 				},
 			]}
 		/>
