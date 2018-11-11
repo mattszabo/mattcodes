@@ -10,6 +10,7 @@ const App = () => {
 
 	return (
 		<div>
+			<h1>React Hooks Clicker</h1>
 			<p>You clicked {count} times</p>
 			<button onClick={handleButtonClick}>Click me</button>
 		</div>
