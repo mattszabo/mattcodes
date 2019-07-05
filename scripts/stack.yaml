@@ -12,7 +12,7 @@ Resources:
             BucketName: !Ref 'S3BucketName'
             WebsiteConfiguration:
                 IndexDocument: index.html
-                ErrorDocument: index.html
+                ErrorDocument: 404.html
             Tags:
                 - Key: Owner
                   Value: Matt Szabo
@@ -23,6 +23,14 @@ Resources:
         Properties:
             DistributionConfig:
                 Comment: CloudFront distribution for mattcodes
+                Aliases:
+                  - mattcodes.com.au
+                  - www.mattcodes.com.au
+                ViewerCertificate:
+                  AcmCertificateArn: arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d
+                  SslSupportMethod: sni-only
+                  MinimumProtocolVersion: TLSv1.2_2018
+                HttpVersion: http2
                 DefaultCacheBehavior:
                     AllowedMethods:
                         - HEAD
@@ -34,15 +42,15 @@ Resources:
                         QueryString: 'false'
                     SmoothStreaming: 'false'
                     TargetOriginId: default-origin
-                    ViewerProtocolPolicy: allow-all
+                    ViewerProtocolPolicy: redirect-to-https
                 DefaultRootObject: index.html
                 CustomErrorResponses:
                     - ErrorCode: '404'
-                      ResponsePagePath: '/index.html'
+                      ResponsePagePath: '/404.html'
                       ResponseCode: '200'
                       ErrorCachingMinTTL: '30'
                     - ErrorCode: '403'
-                      ResponsePagePath: '/index.html'
+                      ResponsePagePath: '/403.html'
                       ResponseCode: '200'
                       ErrorCachingMinTTL: '30'
                 Enabled: 'true'
