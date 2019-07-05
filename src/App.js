@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CounterButton from './components/CounterButton';
+
 import './App.css';
 
 const App = () => {
@@ -12,7 +14,7 @@ const App = () => {
 		<div>
 			<h1>React Hooks Clicker</h1>
 			<p>You clicked {count} times</p>
-			<button onClick={handleButtonClick}>Click me</button>
+			<CounterButton handleClick={handleButtonClick} text="Click me" />
 		</div>
 	);
 };
