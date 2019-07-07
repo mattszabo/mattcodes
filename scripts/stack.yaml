@@ -1,68 +1,80 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: mattcodes
 Parameters:
-    S3BucketName:
-        Type: String
-        Description: S3 Bucket Name to deploy to
-        Default: mattcodes
+  S3BucketName:
+    Type: String
+    Description: S3 Bucket Name to deploy to
+    Default: mattcodes
 Resources:
-    WebsiteBucket:
-        Type: AWS::S3::Bucket
-        Properties:
-            BucketName: !Ref 'S3BucketName'
-            WebsiteConfiguration:
-                IndexDocument: index.html
-                ErrorDocument: 404.html
-            Tags:
-                - Key: Owner
-                  Value: Matt Szabo
-                - Key: Name
-                  Value: mattcodes
-    WebsiteCloudfront:
-        Type: AWS::CloudFront::Distribution
-        Properties:
-            DistributionConfig:
-                Comment: CloudFront distribution for mattcodes
-                Aliases:
-                  - mattcodes.com.au
-                  - www.mattcodes.com.au
-                ViewerCertificate:
-                  AcmCertificateArn: arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d
-                  SslSupportMethod: sni-only
-                  MinimumProtocolVersion: TLSv1.2_2018
-                HttpVersion: http2
-                DefaultCacheBehavior:
-                    AllowedMethods:
-                        - HEAD
-                        - GET
-                    ForwardedValues:
-                        Cookies:
-                            Forward: none
-                        Headers: []
-                        QueryString: 'false'
-                    SmoothStreaming: 'false'
-                    TargetOriginId: default-origin
-                    ViewerProtocolPolicy: redirect-to-https
-                DefaultRootObject: index.html
-                CustomErrorResponses:
-                    - ErrorCode: '404'
-                      ResponsePagePath: '/404.html'
-                      ResponseCode: '200'
-                      ErrorCachingMinTTL: '30'
-                    - ErrorCode: '403'
-                      ResponsePagePath: '/403.html'
-                      ResponseCode: '200'
-                      ErrorCachingMinTTL: '30'
-                Enabled: 'true'
-                Origins:
-                    - DomainName: !GetAtt WebsiteBucket.DomainName
-                      Id: 'default-origin'
-                      S3OriginConfig: {}
-                PriceClass: PriceClass_All
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'S3BucketName'
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+      Tags:
+        - Key: Owner
+          Value: Matt Szabo
+        - Key: Name
+          Value: mattcodes
+  WebsiteCloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: CloudFront distribution for mattcodes
+        Aliases:
+          - mattcodes.com.au
+          - www.mattcodes.com.au
+        ViewerCertificate:
+          AcmCertificateArn: arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2018
+        HttpVersion: http2
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - HEAD
+            - GET
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            Headers: []
+            QueryString: 'false'
+          SmoothStreaming: 'false'
+          TargetOriginId: default-origin
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCode: '404'
+            ResponsePagePath: '/404.html'
+            ResponseCode: '200'
+            ErrorCachingMinTTL: '30'
+          - ErrorCode: '403'
+            ResponsePagePath: '/403.html'
+            ResponseCode: '200'
+            ErrorCachingMinTTL: '30'
+        Enabled: 'true'
+        Origins:
+          - DomainName: !GetAtt WebsiteBucket.DomainName
+            Id: 'default-origin'
+            S3OriginConfig: {}
+        PriceClass: PriceClass_All
+  MattCodesAlias:
+    DependsOn: WebsiteCloudFront
+    Type: AWS::Route53::RecordSet
+    Properties:
+      AliasTarget:
+        DNSName: !GetAtt WebsiteCloudFront.DomainName
+        EvaluateTargetHealth: 'false'
+        HostedZoneId: !Ref WebsiteCloudFront
+      HostedZoneName: mattcodes.com.au
+      Name: mattcodes.com.au
+      TTL: 300
+      Type: A
 Outputs:
-    WebsiteURL:
-        Description: S3 Bucket Website URL
-        Value: !GetAtt 'WebsiteBucket.WebsiteURL'
-    DomainName:
-        Description: Cloudfront distribution domain for mattcodes
-        Value: !GetAtt 'WebsiteCloudfront.DomainName'
+  WebsiteURL:
+    Description: S3 Bucket Website URL
+    Value: !GetAtt 'WebsiteBucket.WebsiteURL'
+  DomainName:
+    Description: CloudFront distribution domain for mattcodes
+    Value: !GetAtt 'WebsiteCloudFront.DomainName'
