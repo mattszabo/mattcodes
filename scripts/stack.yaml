@@ -25,11 +25,10 @@ Resources:
         Comment: CloudFront distribution for mattcodes
         Aliases:
           - mattcodes.com.au
-          - www.mattcodes.com.au
         ViewerCertificate:
           AcmCertificateArn: arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d
           SslSupportMethod: sni-only
-          MinimumProtocolVersion: TLSv1.2_2018
+          MinimumProtocolVersion: TLSv1.1_2016
         HttpVersion: http2
         DefaultCacheBehavior:
           AllowedMethods:
@@ -59,18 +58,32 @@ Resources:
             Id: 'default-origin'
             S3OriginConfig: {}
         PriceClass: PriceClass_All
-  MattCodesAlias:
+  MattcodesDNS:
     DependsOn: WebsiteCloudFront
-    Type: AWS::Route53::RecordSet
+    Type: AWS::Route53::RecordSetGroup
     Properties:
-      AliasTarget:
-        DNSName: !GetAtt WebsiteCloudFront.DomainName
-        EvaluateTargetHealth: 'false'
-        HostedZoneId: !Ref WebsiteCloudFront
-      HostedZoneName: mattcodes.com.au
-      Name: mattcodes.com.au
-      TTL: 300
-      Type: A
+      HostedZoneName: mattcodes.com.au.
+      RecordSets:
+        - Name: mattcodes.com.au
+          AliasTarget:
+            DNSName: !GetAtt WebsiteCloudFront.DomainName
+            HostedZoneId: 'Z2FDTNDATAQYW2'
+          Type: A
+        - Name: mattcodes.com.au
+          AliasTarget:
+            DNSName: !GetAtt WebsiteCloudFront.DomainName
+            HostedZoneId: 'Z2FDTNDATAQYW2'
+          Type: AAAA
+        - Name: www.mattcodes.com.au
+          AliasTarget:
+            DNSName: mattcodes.com.au.
+            HostedZoneId: 'Z2DRZUNLT7AKDR'
+          Type: A
+        - Name: www.mattcodes.com.au
+          AliasTarget:
+            DNSName: mattcodes.com.au.
+            HostedZoneId: 'Z2DRZUNLT7AKDR'
+          Type: AAAA
 Outputs:
   WebsiteURL:
     Description: S3 Bucket Website URL
