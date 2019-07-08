@@ -25,6 +25,7 @@ Resources:
         Comment: CloudFront distribution for mattcodes
         Aliases:
           - mattcodes.com.au
+          - www.mattcodes.com.au
         ViewerCertificate:
           AcmCertificateArn: arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d
           SslSupportMethod: sni-only
