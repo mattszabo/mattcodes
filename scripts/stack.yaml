@@ -65,24 +65,24 @@ Resources:
     Properties:
       HostedZoneName: mattcodes.com.au.
       RecordSets:
-        - Name: mattcodes.com.au
+        - Name: www.mattcodes.com.au
           AliasTarget:
             DNSName: !GetAtt WebsiteCloudFront.DomainName
             HostedZoneId: 'Z2FDTNDATAQYW2'
           Type: A
-        - Name: mattcodes.com.au
+        - Name: www.mattcodes.com.au
           AliasTarget:
             DNSName: !GetAtt WebsiteCloudFront.DomainName
             HostedZoneId: 'Z2FDTNDATAQYW2'
           Type: AAAA
-        - Name: www.mattcodes.com.au
+        - Name: mattcodes.com.au
           AliasTarget:
-            DNSName: mattcodes.com.au.
+            DNSName: www.mattcodes.com.au.
             HostedZoneId: 'Z2DRZUNLT7AKDR'
           Type: A
-        - Name: www.mattcodes.com.au
+        - Name: mattcodes.com.au
           AliasTarget:
-            DNSName: mattcodes.com.au.
+            DNSName: www.mattcodes.com.au.
             HostedZoneId: 'Z2DRZUNLT7AKDR'
           Type: AAAA
 Outputs:
