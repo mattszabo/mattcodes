@@ -1,20 +1,6 @@
-import React, { useState } from 'react';
-import CounterButton from './components/CounterButton';
+import React from 'react';
+import Counter from './components/counter/Counter';
 
-const App = () => {
-  const [count, setCount] = useState(0);
-
-  const handleButtonClick = () => {
-    setCount(count + 1);
-  };
-
-  return (
-    <div>
-      <h1>React Hooks Clicker</h1>
-      <p>You've clicked {count} times</p>
-      <CounterButton handleClick={handleButtonClick} text="Click me" />
-    </div>
-  );
-};
+const App = () => <Counter />
 
 export default App;
