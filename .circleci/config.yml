@@ -10,6 +10,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:9.11.2
+      - image: koalaman/shellcheck-alpine:stable
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -33,11 +34,8 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Build
-          command: ./scripts/build
-      - run:
-          name: Deploy CloudFormation changeset
-          command: ./scripts/createStack.sh
-      - run:
-          name: Deploy static site
-          command: ./scripts/deploy.sh
+          name: Build & Deploy Scripts
+          command: |
+            ./scripts/build
+            ./scripts/createStack.sh
+            ./scripts/deploy.sh
