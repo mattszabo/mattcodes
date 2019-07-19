@@ -36,10 +36,6 @@ jobs:
       - run:
           name: Build & Deploy Scripts
           command: |
-            pwd
-            ls
-            ls ~
-            ls ~/mattcodes
-            ~/mattcodes/scripts/build
+            ~/mattcodes/scripts/build.sh
             ~/mattcodes/scripts/createStack.sh
             ~/mattcodes/scripts/deploy.sh
