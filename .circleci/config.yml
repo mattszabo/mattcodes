@@ -36,6 +36,6 @@ jobs:
       - run:
           name: Build & Deploy Scripts
           command: |
-            ./scripts/build
-            ./scripts/createStack.sh
-            ./scripts/deploy.sh
+            ~/mattcodes/scripts/build
+            ~/mattcodes/scripts/createStack.sh
+            ~/mattcodes/scripts/deploy.sh
