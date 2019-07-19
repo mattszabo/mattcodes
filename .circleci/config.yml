@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Build & Deploy Scripts
           command: |
-            apt-get -y -qq install awscli
+            sudo apt-get -y -qq install awscli
             ~/mattcodes/scripts/build.sh
             ~/mattcodes/scripts/createStack.sh
             ~/mattcodes/scripts/deploy.sh
