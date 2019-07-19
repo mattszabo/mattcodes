@@ -10,7 +10,6 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:9.11.2
-      - image: koalaman/shellcheck-alpine:stable
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -36,6 +35,7 @@ jobs:
       - run:
           name: Build & Deploy Scripts
           command: |
+            apt-get -y -qq install awscli
             ~/mattcodes/scripts/build.sh
             ~/mattcodes/scripts/createStack.sh
             ~/mattcodes/scripts/deploy.sh
