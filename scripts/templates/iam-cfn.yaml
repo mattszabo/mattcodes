@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: mattcodes
+Resources:
+  CircleCIUser:
+    Type: AWS::IAM::User
+    Properties: 
+      UserName: CircleCI
+  BuildAgentPolicy:
+    Type: AWS::IAM::Policy
+    DependsOn: CircleCIUser
+    Properties: 
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Action:
+              - "cloudformation:Describe*"
+              - "cloudformation:List*"
+              - "cloudformation:Get*"
+              - "cloudformation:CreateChangeSet"
+              - "cloudformation:CreateStack"
+              - "cloudformation:DeleteStack"
+              - "cloudformation:UpdateStack"
+            Resource: "*"
+      PolicyName: BuildAgentPolicy
+      Users: 
+        - CircleCIUser
