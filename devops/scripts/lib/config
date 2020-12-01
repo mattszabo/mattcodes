@@ -1,8 +1,0 @@
-# General vars
-export APPLICATION_NAME="mattcodes"
-
-# AWS Variables
-export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-"ap-southeast-2"}
-
-# Environment
-export PATH="${PATH}:./node_modules/.bin"
