@@ -1,0 +1,70 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1.0
+  aws-s3: circleci/aws-s3@2.0.0
+
+jobs:
+  build:
+    executor:
+      name: node/default
+    working_directory: ~/mattcodes
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/mattcodes/node_modules
+          override-ci-command: npm install
+      - run: npm run export
+      - persist_to_workspace:
+          root: ~/mattcodes
+          paths: __sapper__/export
+  deploy-dev:
+    executor:
+      name: node/default
+    working_directory: ~/mattcodes
+    steps:
+      - attach_workspace:
+          at: ~/mattcodes
+      - aws-s3/sync:
+          from:  ~/mattcodes/__sapper__/export
+          to: 's3://mattcodes-web-dev'
+          aws-access-key-id: AWS_ACCESS_KEY_ID_MATTCODES
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_MATTCODES
+          aws-region: AWS_REGION
+  deploy-prod:
+    executor:
+      name: node/default
+    working_directory: ~/mattcodes
+    steps:
+      - attach_workspace:
+          at: ~/mattcodes
+      - aws-s3/sync:
+          from:  ~/mattcodes/__sapper__/export
+          to: 's3://mattcodes-web-prod'
+          aws-access-key-id: AWS_ACCESS_KEY_ID_MATTCODES
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_MATTCODES
+          aws-region: AWS_REGION
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy-dev:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - prod-approval:
+          type: approval
+          requires:
+            - deploy-dev
+          filters:
+            branches:
+              only: master
+      - deploy-prod:
+          requires:
+            - prod-approval
+          filters:
+            branches:
+              only: master
