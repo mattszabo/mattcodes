@@ -81,7 +81,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   #   prefix          = "myprefix"
   # }
 
-  # aliases = ["mysite.example.com", "yoursite.example.com"]
+  aliases = var.env_prefix == "prod" ? ["mattcodes.com.au", "www.mattcodes.com.au"] : ["dev.mattcodes.com.au"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -118,6 +118,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = "arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d"
+    ssl_support_method = "sni-only"
   }
 }

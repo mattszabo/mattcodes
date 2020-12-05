@@ -20,7 +20,7 @@ This will start the development server on [localhost:3000](http://localhost:3000
 
 Infrastructure is represented as code with Terraform as the tool to deploy it.
 
-All `terraform` commands are required to be run from the mattcodes/terraform directory
+All `terraform` commands are required to be run from `./terraform`
 
 ### Workspaces
 
