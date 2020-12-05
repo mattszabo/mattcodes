@@ -3,6 +3,10 @@ provider "aws" {
   region = "ap-southeast-2"
 }
 
+data "aws_ssm_parameter" "ssl_arn" {
+  name = "/mattcodes/ssl/arn"
+}
+
 resource "aws_s3_bucket" "mattcodes_web" {
   bucket = "mattcodes-web-${var.env_prefix}"
   acl = "private"
@@ -118,7 +122,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:108801605866:certificate/935f9d2f-c49b-42bd-b815-19a20d732f2d"
+    acm_certificate_arn = data.aws_ssm_parameter.ssl_arn.value
     ssl_support_method = "sni-only"
   }
 }
